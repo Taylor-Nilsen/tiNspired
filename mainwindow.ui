@@ -14,11 +14,11 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Firebird Emu</string>
+   <string>tiNspired</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/icons/resources/org.firebird-emus.firebird-emu.png</normaloff>:/icons/resources/org.firebird-emus.firebird-emu.png</iconset>
+    <normaloff>:/icons/resources/tinspired.png</normaloff>:/icons/resources/tinspired.png</iconset>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
@@ -470,7 +470,7 @@
     <property name="title">
      <string>Abo&amp;ut</string>
     </property>
-    <addaction name="actionAbout_Firebird"/>
+    <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
    <addaction name="menuEmulation"/>
@@ -623,13 +623,13 @@
     <string>&amp;Record GIF</string>
    </property>
   </action>
-  <action name="actionAbout_Firebird">
+  <action name="actionAbout">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/org.firebird-emus.firebird-emu.png</normaloff>:/icons/resources/org.firebird-emus.firebird-emu.png</iconset>
+     <normaloff>:/icons/resources/tinspired.png</normaloff>:/icons/resources/tinspired.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;About Firebird</string>
+    <string>&amp;About tiNspired</string>
    </property>
   </action>
   <action name="actionAbout_Qt">

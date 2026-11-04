@@ -20,7 +20,7 @@ FBAboutDialog::FBAboutDialog(QWidget *parent)
 {
     retranslateUi();
 
-    QIcon icon{QStringLiteral(":/icons/resources/org.firebird-emus.firebird-emu.png")};
+    QIcon icon{QStringLiteral(":/icons/resources/tinspired.png")};
     iconLabel.setPixmap(icon.pixmap(icon.actualSize(QSize{64, 64})));
 
     header.setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -63,9 +63,9 @@ void FBAboutDialog::changeEvent(QEvent* event)
 
 void FBAboutDialog::retranslateUi()
 {
-    setWindowTitle(tr("About Firebird"));
-    header.setText(tr("<h3>Firebird %1</h3>"
-                      "<a href='https://github.com/nspire-emus/firebird'>On GitHub</a>").arg(QStringLiteral(STRINGIFY(FB_VERSION))));
+    setWindowTitle(tr("About tiNspired"));
+    header.setText(tr("<h3>tiNspired %1</h3>"
+                      "<a href='https://github.com/Taylor-Nilsen/tiNspired'>On GitHub</a>").arg(QStringLiteral(STRINGIFY(FB_VERSION))));
 
     authors.setText(tr(  "Authors:<br>"
                          "Fabian Vogt (<a href='https://github.com/Vogtinator'>Vogtinator</a>)<br>"
@@ -100,7 +100,7 @@ void FBAboutDialog::checkForUpdate()
     checkSuccessful = false;
     update.setText(tr("Checking for updates..."));
 
-    QNetworkRequest request(QUrl(QString::fromLatin1("https://api.github.com/repos/nspire-emus/firebird/releases/latest")));
+    QNetworkRequest request(QUrl(QString::fromLatin1("https://api.github.com/repos/Taylor-Nilsen/tiNspired/releases/latest")));
 
     reply = nam.get(request);
 

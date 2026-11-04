@@ -1,4 +1,4 @@
-import Firebird.Emu 1.0
+import TiNspired.Emu 1.0
 
 import QtQuick 2.3
 import QtQuick.Layouts 1.0

@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Dialogs 1.1
 import QtQuick.Layouts 1.0
-import Firebird.Emu 1.0
-import Firebird.UIComponents 1.0
+import TiNspired.Emu 1.0
+import TiNspired.UIComponents 1.0
 
 ColumnLayout {
     spacing: 5
@@ -118,7 +118,7 @@ ColumnLayout {
     FBLabel {
         Layout.fillWidth: true
         wrapMode: Text.WordWrap
-        text: qsTr("When dragging files onto Firebird, it will try to send them to the emulated system.")
+        text: qsTr("When dragging files onto the window, it will try to send them to the emulated system.")
         font.pixelSize: TextMetrics.normalSize
     }
 

@@ -12,7 +12,7 @@
         <file>resources/icons/Actions-media-playback-pause-icon.png</file>
         <file>resources/icons/Actions-network-connect-icon.png</file>
         <file>resources/icons/Actions-network-disconnect-icon.png</file>
-        <file>resources/org.firebird-emus.firebird-emu.png</file>
+        <file>resources/tinspired.png</file>
         <file>resources/icons/system-suspend-hibernate.png</file>
         <file>resources/icons/system-suspend.png</file>
         <file>resources/icons/kmplayer.png</file>
@@ -36,38 +36,30 @@
         <file>qml/MobileUI.qml</file>
         <file>qml/SidebarButton.qml</file>
         <file>qml/ConfigPagesModel.qml</file>
-        <file>qml/Firebird/UIComponents/PageDelegate.qml</file>
-        <file>qml/Firebird/UIComponents/PageList.qml</file>
-        <file>qml/Firebird/UIComponents/qmldir</file>
+        <file>qml/TiNspired/UIComponents/PageDelegate.qml</file>
+        <file>qml/TiNspired/UIComponents/PageList.qml</file>
+        <file>qml/TiNspired/UIComponents/qmldir</file>
         <file>qml/FBConfigDialog.qml</file>
         <file>qml/ConfigPageDebug.qml</file>
-        <file>qml/Firebird/UIComponents/ConfigPages.qml</file>
+        <file>qml/TiNspired/UIComponents/ConfigPages.qml</file>
         <file>qml/ConfigPageKits.qml</file>
-        <file>qml/Firebird/UIComponents/KitItem.qml</file>
-        <file>qml/Firebird/UIComponents/KitList.qml</file>
-        <file>qml/Firebird/UIComponents/FBLabel.qml</file>
-        <file>qml/Firebird/UIComponents/FileSelect.qml</file>
-        <file>qml/Firebird/UIComponents/FBLink.qml</file>
+        <file>qml/TiNspired/UIComponents/KitItem.qml</file>
+        <file>qml/TiNspired/UIComponents/KitList.qml</file>
+        <file>qml/TiNspired/UIComponents/FBLabel.qml</file>
+        <file>qml/TiNspired/UIComponents/FileSelect.qml</file>
+        <file>qml/TiNspired/UIComponents/FBLink.qml</file>
         <file>qml/ConfigPageEmulation.qml</file>
         <file>qml/ConfigPageFileTransfer.qml</file>
-        <file>qml/Firebird/UIComponents/TextMetrics.qml</file>
+        <file>qml/TiNspired/UIComponents/TextMetrics.qml</file>
         <file>qml/ScrollingKeypad.qml</file>
-        <file>qml/Firebird/UIComponents/Toast.qml</file>
+        <file>qml/TiNspired/UIComponents/Toast.qml</file>
         <file>qml/MobileUIConfig.qml</file>
         <file>qml/MobileUIFront.qml</file>
         <file>qml/MobileUIDrawer.qml</file>
         <file>qml/DrawerButton.qml</file>
-        <file>qml/Firebird/UIComponents/VerticalSwipeBar.qml</file>
+        <file>qml/TiNspired/UIComponents/VerticalSwipeBar.qml</file>
         <file>qml/FlashDialog.qml</file>
-        <file>qml/Firebird/UIComponents/IconButton.qml</file>
-    </qresource>
-    <qresource prefix="/i18n">
-        <file>i18n/de_DE.qm</file>
-        <file>i18n/fr_FR.qm</file>
-        <file>i18n/pl_PL.qm</file>
-        <file>i18n/zh_CN.qm</file>
-        <file>i18n/zh_TW.qm</file>
-        <file>i18n/yue_HK.qm</file>
+        <file>qml/TiNspired/UIComponents/IconButton.qml</file>
     </qresource>
     <qresource prefix="/keyimages">
         <file>resources/keyimages/questionmark.png</file>

@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
-import Firebird.UIComponents 1.0
+import TiNspired.UIComponents 1.0
 
 Rectangle {
     property int maxWidth: parent.width * 0.9

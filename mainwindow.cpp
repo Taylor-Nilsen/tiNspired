@@ -114,7 +114,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCreate_flash, SIGNAL(triggered()), this, SLOT(createFlash()));
 
     //Menu "About"
-    connect(ui->actionAbout_Firebird, SIGNAL(triggered(bool)), this, SLOT(showAbout()));
+    connect(ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(showAbout()));
     connect(ui->actionAbout_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
 
     // Lang switch
@@ -612,7 +612,7 @@ void MainWindow::recordGIF()
     if(path.isEmpty())
     {
         // TODO: Use QTemporaryFile?
-        path = QDir::tempPath() + QDir::separator() + QStringLiteral("firebird_tmp.gif");
+        path = QDir::tempPath() + QDir::separator() + QStringLiteral("tinspired_tmp.gif");
 
         gif_start_recording(path.toStdString().c_str(), 3);
     }

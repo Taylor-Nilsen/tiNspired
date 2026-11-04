@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
-import Firebird.Emu 1.0
+import TiNspired.Emu 1.0
 
 Rectangle {
     property alias currentItem: listView.currentItem
