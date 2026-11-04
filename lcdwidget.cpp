@@ -17,17 +17,17 @@ LCDWidget::LCDWidget(QWidget *parent, Qt::WindowFlags f)
     refresh_timer.setInterval(1000 / 30); // 30 fps
 }
 
+// The finger is already "on the pad" from hovering, so a button press is a
+// touchpad click (down), not a tap. Release lifts the click but keeps contact.
 void LCDWidget::mousePressEvent(QMouseEvent *event)
 {
-    the_qml_bridge->setTouchpadState((qreal)event->x() / width(), (qreal)event->y() / height(), true, event->button() == Qt::RightButton);
+    the_qml_bridge->setTouchpadState((qreal)event->x() / width(), (qreal)event->y() / height(), true, true);
 }
 
 void LCDWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(event->button() == Qt::RightButton)
-        keypad.touchpad_down = keypad.touchpad_contact = false;
-    else
-        keypad.touchpad_contact = false;
+    Q_UNUSED(event);
+    keypad.touchpad_down = false;
 
     the_qml_bridge->touchpadStateChanged();
     keypad.kpc.gpio_int_active |= 0x800;

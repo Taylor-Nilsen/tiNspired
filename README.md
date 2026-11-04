@@ -15,7 +15,7 @@ Get the latest build from the [Releases page](https://github.com/taylor-nilsen/t
 Using it
 --------
 
-* **Mouse = cursor.** Move the mouse over the screen and the calc cursor follows, like a finger sliding on the touchpad. Click to press, right-click to hold. The touchpad on the on-screen keypad still works too.
+* **Mouse = cursor.** Move the mouse over the screen and the calc cursor follows, like a finger sliding on the touchpad. Click to click, hold the button to drag. The touchpad on the on-screen keypad still works too.
 * **Just type.** Letters, digits, `+ - * / ^ ( ) = . ,`, Enter, Backspace, Esc, Tab all go straight to the calc. Ctrl is the calc's ctrl key, Shift is shift. Alt+key reaches the rest (Alt+D doc, Alt+M menu, Alt+T trig, Alt+P power, Alt+2 x², Alt+C catalog, Alt+V var).
 * **Paste an expression.** Copy text anywhere on your computer, then press Ctrl+Shift+V (Cmd+Shift+V on macOS) in the emulator. It types the text into the calc key by key. Supports letters, digits, the operators above, π, ², × and ÷. Plain Ctrl+V is the calc's own paste.
 * **Send files to the calc.** Drag `.tns` files onto the emulator window. They land in the folder picked in the File Transfer dock.
