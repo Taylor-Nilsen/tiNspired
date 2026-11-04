@@ -49,12 +49,7 @@ static void migrateSettings()
     {
         qDebug("Trying to import old settings");
 
-        QVariantHash old = readOldSettings(QStringLiteral("org.firebird"), QStringLiteral("firebird-emu"));
-        if(!old.count())
-            old = readOldSettings(QStringLiteral("ndless"), QStringLiteral("firebird"));
-
-        if(!old.count())
-            old = readOldSettings(QStringLiteral("ndless"), QStringLiteral("nspire_emu"));
+        QVariantHash old = readOldSettings(QStringLiteral("ndless"), QStringLiteral("nspire_emu"));
 
         if(old.count())
         {
@@ -100,9 +95,9 @@ int main(int argc, char **argv)
         app.setFont(QFont(QStringLiteral("Helvetica Neue")));
     #endif
 
-    QCoreApplication::setOrganizationDomain(QStringLiteral("firebird-emus.org"));
-    QCoreApplication::setOrganizationName(QStringLiteral("Firebird Emus"));
-    QCoreApplication::setApplicationName(QStringLiteral("firebird-emu"));
+    QCoreApplication::setOrganizationDomain(QStringLiteral("taylor-nilsen.github.io"));
+    QCoreApplication::setOrganizationName(QStringLiteral("tiNspired"));
+    QCoreApplication::setApplicationName(QStringLiteral("tiNspired"));
 
     // Needed for settings migration
     qRegisterMetaTypeStreamOperators<KitModel>();
@@ -114,13 +109,13 @@ int main(int argc, char **argv)
     QQmlEngine::setObjectOwnership(&qmlBridge, QQmlEngine::CppOwnership);
 
     // Register QMLBridge for Keypad<->Emu communication
-    qmlRegisterSingletonType<QMLBridge>("Firebird.Emu", 1, 0, "Emu", [](QQmlEngine *, QJSEngine *) -> QObject* {
+    qmlRegisterSingletonType<QMLBridge>("TiNspired.Emu", 1, 0, "Emu", [](QQmlEngine *, QJSEngine *) -> QObject* {
         return the_qml_bridge;
     });
     // Register QtFramebuffer for QML display
-    qmlRegisterType<QMLFramebuffer>("Firebird.Emu", 1, 0, "EmuScreen");
+    qmlRegisterType<QMLFramebuffer>("TiNspired.Emu", 1, 0, "EmuScreen");
     // Register KitModel
-    qmlRegisterType<KitModel>("Firebird.Emu", 1, 0, "KitModel");
+    qmlRegisterType<KitModel>("TiNspired.Emu", 1, 0, "KitModel");
 
     #ifndef MOBILE_UI
         MainWindow mw;

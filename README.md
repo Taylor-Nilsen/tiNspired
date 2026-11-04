@@ -1,8 +1,9 @@
 tiNspired
 =========
 
-This project is currently the community TI-Nspire emulator, originally created by Goplat.  
-It supports the emulation of Nspire Touchpad (CAS), CX (CAS) and CX II (-T/CAS) calcs on Android, iOS, Linux, macOS and Windows.
+A TI-Nspire CX II CAS emulator for macOS and Windows. It runs the real calculator OS, so what you see is the real thing, with a mouse-driven cursor, keyboard typing, clipboard paste and drag-and-drop file transfer on top.
+
+Based on [Firebird](https://github.com/nspire-emus/firebird), the community TI-Nspire emulator originally created by Goplat. The emulation core is theirs; this fork reworks the desktop experience.
 
 Download
 --------
@@ -11,6 +12,16 @@ Get the latest build from the [Releases page](https://github.com/Taylor-Nilsen/t
 
 * **macOS:** download the `.dmg` and drag the app to Applications. It is unsigned, so on first launch right-click the app and choose Open.
 * **Windows:** download the `.zip`, unzip it and run `tiNspired.exe`.
+
+First launch
+------------
+
+The emulator needs the calculator's own firmware, which is TI's and not included. On first launch it asks for:
+
+* **Boot1 (manuf):** has to come from a real CX II.
+* **OS:** the CX II CAS OS installer (`.tcc2`) from TI's site.
+
+The model picker defaults to CX II. Touchpad and CX models still work if you have their files.
 
 Using it
 --------
@@ -21,24 +32,10 @@ Using it
 * **Send files to the calc.** Drag `.tns` files onto the emulator window. They land in the folder picked in the File Transfer dock.
 * **Pull files off the calc.** Open the File Transfer dock (Docks menu), right-click any file, Download.
 
-Screenshots:
--------------------
+Building from source
+--------------------
 
-_Linux:_
-
-[![](http://i.imgur.com/eGJOMsSl.png)](http://i.imgur.com/eGJOMsS.png)
-
-_Windows:_ | _Android:_
---- | ---
-[![](https://i.imgur.com/aibTt9Cl.png)](https://i.imgur.com/aibTt9C.png) | [![](https://i.imgur.com/cLphTgnm.png)](https://i.imgur.com/cLphTgn.png)
-_macOS:_ | _iOS:_
-[![](https://i.imgur.com/ymDtYsj.png)](https://i.imgur.com/O8R2aSo.png) | [![](https://i.imgur.com/LT1u2bim.png)](https://i.imgur.com/LT1u2bi.png)
-
-Building
---------
-
-First, you need to install Qt5.  
-Then, you can either use Qt Creator directly (don't forget to configure your kits/compilers etc.!), or run:
+Install Qt 5.15 and run:
 
 ```
 mkdir -p build
@@ -46,17 +43,15 @@ cd build
 qmake ..
 make
 ```
-##### A special case: iOS with translation (≈JIT) enabled:
 
-There seems to be a bug in qmake that makes the required .S get ignored when building a JIT-enabled ([`TRANSLATION_ENABLED = true`](https://github.com/nspire-emus/firebird/blob/master/firebird.pro#L4)) binary.  
-As a workaround, you'll have to take care of it manually:
+On macOS with Homebrew:
 
-1. Hit Build in Qt Creator, on an iOS kit/target. (It'll fail)
-2. Open the generated .xcodeproj file (in the build folder) in Xcode
-3. Locate `asmcode_arm.S` in the file list, click on it, and in the right sidebar, add it to the Firebird target
-4. Adjust any other project settings as you see fit (certs/profiles/team/signings/entitlements/etc. though this should be automatic except the Team choice)
-5. Build/Run
-
+```
+brew install qt@5
+mkdir -p build && cd build
+$(brew --prefix qt@5)/bin/qmake .. && make -j$(sysctl -n hw.ncpu)
+open tiNspired.app
+```
 
 License
 -------

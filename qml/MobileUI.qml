@@ -1,5 +1,5 @@
-import Firebird.Emu 1.0
-import Firebird.UIComponents 1.0
+import TiNspired.Emu 1.0
+import TiNspired.UIComponents 1.0
 
 import QtQuick 2.0
 import QtQuick.Controls 1.2
@@ -8,7 +8,7 @@ import QtQuick.Layouts 1.0
 
 ApplicationWindow {
     id: app
-    title: "Firebird Emu"
+    title: "tiNspired"
     visible: true
 
     property bool closeAfterSuspend: false
@@ -63,7 +63,7 @@ ApplicationWindow {
         standardButtons: StandardButton.Yes | StandardButton.No
         icon: StandardIcon.Warning
         title: qsTr("Suspend failed")
-        text: qsTr("Suspending the emulation failed. Do you still want to quit Firebird?")
+        text: qsTr("Suspending the emulation failed. Do you still want to quit?")
 
         onYes: {
             ignoreSuspendOnClose = true;

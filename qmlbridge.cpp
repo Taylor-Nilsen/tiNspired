@@ -20,7 +20,7 @@ QMLBridge *the_qml_bridge = nullptr;
 QMLBridge::QMLBridge(QObject *parent) : QObject(parent)
 #ifdef IS_IOS_BUILD
 /* This is needed for iOS, as the app location changes at reinstall */
-, settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/firebird.ini"), QSettings::IniFormat)
+, settings(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/tinspired.ini"), QSettings::IniFormat)
 #endif
 {
     assert(the_qml_bridge == nullptr);

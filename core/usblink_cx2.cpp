@@ -250,7 +250,7 @@ static void handlePacket(const NNSEMessage *message, const uint8_t **streamdata 
         resp2.hdr.service = message->service;
         resp2.addr = 0x80; // No idea
 
-        // In some cases on HW and in Firebird always after reconnecting
+        // In some cases on HW and in the emulator always after reconnecting
         // it ignores the first packet for some reason. So just send it
         // twice (the seqno doesn't really matter at this point), if it
         // receives both it'll ignore the second one.

@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 
-import Firebird.UIComponents 1.0
+import TiNspired.UIComponents 1.0
 
 Item {
     Layout.fillHeight: true
