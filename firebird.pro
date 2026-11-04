@@ -21,7 +21,7 @@ android: QT += androidextras
 CONFIG += c++11
 
 TEMPLATE = app
-TARGET = firebird-emu
+TARGET = tiNspired
 
 # Warn if git submodules not downloaded
 !exists("core/gif-h/gif.h"): error("You have to run 'git submodule init' and 'git submodule update' first.")
