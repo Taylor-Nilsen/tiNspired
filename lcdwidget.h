@@ -16,6 +16,7 @@ public slots:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event) override;
     void showEvent(QShowEvent *e) override;
     void hideEvent(QHideEvent *e) override;
     void closeEvent(QCloseEvent *e) override;
