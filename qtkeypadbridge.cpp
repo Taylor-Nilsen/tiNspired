@@ -5,6 +5,10 @@
 #include "core/keypad.h"
 #include "qmlbridge.h"
 #include <QHash>
+#include <QApplication>
+#include <QClipboard>
+#include <QTimer>
+#include <QVector>
 
 QtKeypadBridge qt_keypad_bridge;
 
@@ -200,6 +204,93 @@ void keyToKeypad(QKeyEvent *event)
     }
 }
 
+// Typing queue: (keymap id, pressed) steps played back on a timer so the
+// calc OS sees a clean press/release per character.
+static QVector<QPair<int, bool>> typing_queue;
+static QTimer *typing_timer = nullptr;
+static constexpr int TYPING_STEP_MS = 20; // ponytail: fixed pace, make it a setting if some OS drops keys
+
+static int charToKeypad(QChar c, bool *needs_shift)
+{
+    *needs_shift = false;
+    if(c.isUpper())
+    {
+        *needs_shift = true;
+        c = c.toLower();
+    }
+    if(c >= QLatin1Char('a') && c <= QLatin1Char('z'))
+    {
+        static const int letters[26] = {
+            keymap::aa, keymap::ab, keymap::ac, keymap::ad, keymap::ae, keymap::af, keymap::ag,
+            keymap::ah, keymap::ai, keymap::aj, keymap::ak, keymap::al, keymap::am, keymap::an,
+            keymap::ao, keymap::ap, keymap::aq, keymap::ar, keymap::as, keymap::at, keymap::au,
+            keymap::av, keymap::aw, keymap::ax, keymap::ay, keymap::az };
+        return letters[c.unicode() - 'a'];
+    }
+    if(c >= QLatin1Char('0') && c <= QLatin1Char('9'))
+    {
+        static const int digits[10] = {
+            keymap::n0, keymap::n1, keymap::n2, keymap::n3, keymap::n4,
+            keymap::n5, keymap::n6, keymap::n7, keymap::n8, keymap::n9 };
+        return digits[c.unicode() - '0'];
+    }
+    switch(c.unicode())
+    {
+    case '+': return keymap::plus;
+    case '-': case 0x2212: return keymap::minus; // ASCII minus, U+2212 MINUS SIGN
+    case '*': case 0x00D7: return keymap::mult;  // U+00D7 MULTIPLICATION SIGN
+    case '/': case 0x00F7: return keymap::div;   // U+00F7 DIVISION SIGN
+    case '^': return keymap::pow;
+    case '(': return keymap::pleft;
+    case ')': return keymap::pright;
+    case '=': return keymap::equ;
+    case '.': return keymap::dot;
+    case ',': return keymap::comma;
+    case ' ': return keymap::space;
+    case '\n': return keymap::enter;
+    case '\t': return keymap::tab;
+    case 0x03C0: return keymap::pi;  // U+03C0 GREEK SMALL LETTER PI
+    case 0x00B2: return keymap::squ; // U+00B2 SUPERSCRIPT TWO
+    default: return -1;
+    }
+}
+
+void QtKeypadBridge::typeText(const QString &text)
+{
+    // Let go of modifiers the host shortcut (Ctrl+Shift+V) is holding on the calc
+    typing_queue.append({keymap::shift, false});
+    typing_queue.append({keymap::ctrl, false});
+    for(QChar c : text)
+    {
+        if(c == QLatin1Char('\r'))
+            continue;
+        bool shift;
+        int key = charToKeypad(c, &shift);
+        if(key < 0)
+            continue;
+        if(shift) typing_queue.append({keymap::shift, true});
+        typing_queue.append({key, true});
+        typing_queue.append({key, false});
+        if(shift) typing_queue.append({keymap::shift, false});
+    }
+
+    if(!typing_timer)
+    {
+        typing_timer = new QTimer(qApp);
+        typing_timer->setInterval(TYPING_STEP_MS);
+        QObject::connect(typing_timer, &QTimer::timeout, [] {
+            if(typing_queue.isEmpty())
+            {
+                typing_timer->stop();
+                return;
+            }
+            auto step = typing_queue.takeFirst();
+            setKeypad(step.first, step.second);
+        });
+    }
+    typing_timer->start();
+}
+
 void QtKeypadBridge::keyPressEvent(QKeyEvent *event)
 {
     // Ignore autorepeat, calc os must handle it on its own
@@ -207,6 +298,14 @@ void QtKeypadBridge::keyPressEvent(QKeyEvent *event)
         return;
 
     Qt::Key key = static_cast<Qt::Key>(event->key());
+
+    // Ctrl+Shift+V (Cmd+Shift+V on macOS): type the host clipboard into the calc.
+    // Plain Ctrl+V stays the calc's own paste.
+    if(key == Qt::Key_V && (event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::ShiftModifier))
+    {
+        typeText(QApplication::clipboard()->text());
+        return;
+    }
 
     switch(key)
     {
