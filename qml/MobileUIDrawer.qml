@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQuick.Dialogs 1.1
 import QtQuick.Layouts 1.0
 
-import Firebird.Emu 1.0
-import Firebird.UIComponents 1.0
+import TiNspired.Emu 1.0
+import TiNspired.UIComponents 1.0
 
 Rectangle {
     color: "white"
@@ -21,7 +21,7 @@ Rectangle {
 
         Image {
             id: logo
-            source: "qrc:/icons/resources/org.firebird-emus.firebird-emu.png"
+            source: "qrc:/icons/resources/tinspired.png"
 
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
@@ -166,13 +166,13 @@ Rectangle {
 
                 borderBottomVisible: false
 
-                title: qsTr("Firebird Emu v" + Emu.version)
+                title: qsTr("tiNspired v" + Emu.version)
 
                 font.pixelSize: TextMetrics.normalSize
 
                 MessageDialog {
                     id: aboutDialog
-                    title: qsTr("About Firebird")
+                    title: qsTr("About tiNspired")
                     text: qsTr("Authors:<br>
                                Fabian Vogt (<a href='https://github.com/Vogtinator'>Vogtinator</a>)<br>
                                Adrien Bertrand (<a href='https://github.com/adriweb'>Adriweb</a>)<br>

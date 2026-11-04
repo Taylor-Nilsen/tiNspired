@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.3
-import Firebird.Emu 1.0
-import Firebird.UIComponents 1.0
+import TiNspired.Emu 1.0
+import TiNspired.UIComponents 1.0
 
 Dialog {
     id: flashDialog
@@ -40,7 +40,7 @@ Dialog {
             property int productId: [0x0E0, 0x0C2, 0x100, 0x0F0, 0x1C0][currentIndex]
             Layout.fillWidth: true
             model: ["Touchpad", "Touchpad CAS", "CX", "CX CAS", "CX II (/-T/CAS)"]
-            currentIndex: 3
+            currentIndex: 4
         }
 
         FBLabel {

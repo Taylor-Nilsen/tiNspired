@@ -2,11 +2,11 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.0
-import Firebird.UIComponents 1.0
+import TiNspired.UIComponents 1.0
 
 Window {
     id: window
-    title: qsTr("Firebird Emu Configuration")
+    title: qsTr("tiNspired Settings")
     minimumHeight: 400
     minimumWidth: 500
     height: 420

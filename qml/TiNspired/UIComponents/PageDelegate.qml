@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.1
-import Firebird.UIComponents 1.0
+import TiNspired.UIComponents 1.0
 
 Item {
     property alias text: label.text

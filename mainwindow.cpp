@@ -114,7 +114,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionCreate_flash, SIGNAL(triggered()), this, SLOT(createFlash()));
 
     //Menu "About"
-    connect(ui->actionAbout_Firebird, SIGNAL(triggered(bool)), this, SLOT(showAbout()));
+    connect(ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(showAbout()));
     connect(ui->actionAbout_Qt, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
 
     // Lang switch
@@ -612,7 +612,7 @@ void MainWindow::recordGIF()
     if(path.isEmpty())
     {
         // TODO: Use QTemporaryFile?
-        path = QDir::tempPath() + QDir::separator() + QStringLiteral("firebird_tmp.gif");
+        path = QDir::tempPath() + QDir::separator() + QStringLiteral("tinspired_tmp.gif");
 
         gif_start_recording(path.toStdString().c_str(), 3);
     }
@@ -864,10 +864,10 @@ void MainWindow::updateWindowTitle()
     if(kitIndex >= 0)
     {
         auto name = the_qml_bridge->getKitModel()->getKits()[kitIndex].name;
-        setWindowTitle(tr("Firebird Emu - %1").arg(name));
+        setWindowTitle(tr("tiNspired - %1").arg(name));
     }
     else
-        setWindowTitle(tr("Firebird Emu"));
+        setWindowTitle(tr("tiNspired"));
 }
 
 void MainWindow::applyQMLBridgeSettings()

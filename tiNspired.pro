@@ -1,5 +1,5 @@
-lessThan(QT_MAJOR_VERSION, 5): error("You need at least Qt 5.9 to build Firebird!")
-equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 9): error("You need at least Qt 5.9 to build Firebird!")
+lessThan(QT_MAJOR_VERSION, 5): error("You need at least Qt 5.9 to build tiNspired!")
+equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 9): error("You need at least Qt 5.9 to build tiNspired!")
 
 # Version
 DEFINES += FB_VERSION=1.6
@@ -9,36 +9,22 @@ isEmpty(TRANSLATION_ENABLED): TRANSLATION_ENABLED = auto
 # More accurate, but slower. Set to true, false or auto (default)
 isEmpty(SUPPORT_LINUX) | equals(SUPPORT_LINUX, auto) {
 	SUPPORT_LINUX = true
-	ios|android: SUPPORT_LINUX = false
 }
 
-# Localization
-TRANSLATIONS += i18n/de_DE.ts i18n/fr_FR.ts i18n/pl_PL.ts \
-                i18n/zh_CN.ts i18n/zh_TW.ts i18n/yue_HK.ts
 
 QT += core gui widgets quickwidgets
-android: QT += androidextras
 CONFIG += c++11
 
 TEMPLATE = app
-TARGET = firebird-emu
+TARGET = tiNspired
 
 # Warn if git submodules not downloaded
 !exists("core/gif-h/gif.h"): error("You have to run 'git submodule init' and 'git submodule update' first.")
 
-unix: !android {
-    # For make install support
+unix: !macx {
     isEmpty(PREFIX): PREFIX = /usr/local
-    message("PREFIX: $$PREFIX")
     target.path = $$PREFIX/bin
-    desktop.path = $$PREFIX/share/applications
-    desktop.files += resources/org.firebird-emus.firebird-emu.desktop
-    icon.path = $$PREFIX/share/icons/hicolor/512x512/apps
-    icon.files += resources/org.firebird-emus.firebird-emu.png
-    sendtool.path = $$PREFIX/bin
-    sendtool.CONFIG = nostrip
-    sendtool.files = core/firebird-send
-    INSTALLS += target desktop icon sendtool
+    INSTALLS += target
 }
 
 QMAKE_CFLAGS += -g -std=gnu11 -Wall -Wextra
@@ -67,33 +53,12 @@ win32: {
     QMAKE_CXXFLAGS += -mno-ms-bitfields
 }
 
-macx: ICON = resources/logo.icns
+macx: ICON = resources/tinspired.icns
 macx: QMAKE_LIBS_OPENGL = -framework OpenGL
 # MAP_JIT requires macOS 10.14. Qt 6 already requires a newer macOS version.
-macx:!ios:lessThan(QT_MAJOR_VERSION, 6): QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
+macx:lessThan(QT_MAJOR_VERSION, 6): QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
 
-# This does also apply to android
 unix: SOURCES += core/os/os-linux.c
-
-android {
-    # Special implementation of fopen_utf8
-    SOURCES += core/os/os-android.cpp
-    # Fix up all relocations for known symbols, makes it faster and gets rid of some .text relocations
-    # if disabled in asmcode_arm.S.
-    QMAKE_LFLAGS += -Wl,-Bsymbolic
-}
-
-ios|android: DEFINES += MOBILE_UI
-
-ios {
-    DEFINES += IS_IOS_BUILD
-    QMAKE_INFO_PLIST = Info.plist
-    QMAKE_CFLAGS += -mno-thumb
-    QMAKE_CXXFLAGS += -mno-thumb
-    QMAKE_LFLAGS += -mno-thumb
-    ios_icon.files = $$files(resources/ios/Icon*.png)
-    QMAKE_BUNDLE_DATA += ios_icon
-}
 
 # QMAKE_HOST can be e.g. armv7hl, but QT_ARCH would be arm in such cases
 FB_ARCH = $$QT_ARCH
@@ -147,12 +112,10 @@ equals(SUPPORT_LINUX, true) {
 }
 
 # Default to armv7 on ARM for movw/movt. If your CPU doesn't support it, comment this out.
-!android:contains(FB_ARCH, "arm") {
+contains(FB_ARCH, "arm") {
     QMAKE_CFLAGS += -march=armv7-a -marm
     QMAKE_CXXFLAGS += -march=armv7-a -marm
 }
-
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 QML_IMPORT_PATH += $$PWD/qml
 
@@ -269,13 +232,13 @@ SOURCES += qml/Keypad.qml \
     qml/FBConfigDialog.qml \
     qml/FlashDialog.qml \
     qml/Touchpad.qml \
-    qml/Firebird/Emu/Emu.qml \
-    qml/Firebird/Emu/EmuScreen.qml \
-    qml/Firebird/UIComponents/FBLabel.qml \
-    qml/Firebird/UIComponents/FileSelect.qml \
-    qml/Firebird/UIComponents/PageDelegate.qml \
-    qml/Firebird/UIComponents/PageList.qml \
-    qml/Firebird/UIComponents/ConfigPages.qml
+    qml/TiNspired/Emu/Emu.qml \
+    qml/TiNspired/Emu/EmuScreen.qml \
+    qml/TiNspired/UIComponents/FBLabel.qml \
+    qml/TiNspired/UIComponents/FileSelect.qml \
+    qml/TiNspired/UIComponents/PageDelegate.qml \
+    qml/TiNspired/UIComponents/PageList.qml \
+    qml/TiNspired/UIComponents/ConfigPages.qml
 }
 
 # This doesn't exist, but Qt Creator ignores that
@@ -296,13 +259,6 @@ SOURCES += core/asmcode_arm.S \
 
 RESOURCES += \
     resources.qrc
-
-DISTFILES += \
-    resources/org.firebird.firebird-emu.desktop \
-    core/firebird-send \
-    android/AndroidManifest.xml \
-    android/res/values/libs.xml \
-    android/build.gradle
 
 # Generate the binary arm code into armcode_bin.h
 armsnippets.commands = arm-none-eabi-gcc -fno-leading-underscore -c $$PWD/core/armsnippets.S -o armsnippets.o -mcpu=arm926ej-s \
