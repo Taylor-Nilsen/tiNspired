@@ -13,6 +13,11 @@ public:
     static void keyPressEvent(QKeyEvent *event);
     static void keyReleaseEvent(QKeyEvent *event);
 
+    /* Type a string into the calc by pressing the matching keypad keys one
+     * after another (used for pasting from the host clipboard).
+     * Characters without a keypad key are skipped. */
+    static void typeText(const QString &text);
+
     virtual bool eventFilter(QObject *obj, QEvent *event);
 };
 

@@ -8,6 +8,9 @@ LCDWidget::LCDWidget(QWidget *parent, Qt::WindowFlags f)
     : QWidget(parent, f)
 {
     setMinimumSize(320, 240);
+    // Hovering over the screen acts like a finger sliding on the touchpad,
+    // so the mouse drives the calc cursor without pressing anything.
+    setMouseTracking(true);
 
     connect(&refresh_timer, SIGNAL(timeout()), this, SLOT(update()));
 
@@ -33,7 +36,16 @@ void LCDWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void LCDWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    the_qml_bridge->setTouchpadState((qreal)event->x() / width(), (qreal)event->y() / height(), keypad.touchpad_contact, keypad.touchpad_down);
+    the_qml_bridge->setTouchpadState((qreal)event->x() / width(), (qreal)event->y() / height(), true, keypad.touchpad_down);
+}
+
+void LCDWidget::leaveEvent(QEvent *event)
+{
+    QWidget::leaveEvent(event);
+    keypad.touchpad_down = keypad.touchpad_contact = false;
+    the_qml_bridge->touchpadStateChanged();
+    keypad.kpc.gpio_int_active |= 0x800;
+    keypad_int_check();
 }
 
 void LCDWidget::showEvent(QShowEvent *e)
