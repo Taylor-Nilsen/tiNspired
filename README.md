@@ -1,5 +1,5 @@
-Firebird Emu
-==========
+tiNspired
+=========
 
 This project is currently the community TI-Nspire emulator, originally created by Goplat.  
 It supports the emulation of Nspire Touchpad (CAS), CX (CAS) and CX II (-T/CAS) calcs on Android, iOS, Linux, macOS and Windows.
@@ -7,10 +7,10 @@ It supports the emulation of Nspire Touchpad (CAS), CX (CAS) and CX II (-T/CAS) 
 Download
 --------
 
-Get the latest build from the [Releases page](https://github.com/taylor-nilsen/tinspired/releases/latest).
+Get the latest build from the [Releases page](https://github.com/Taylor-Nilsen/tiNspired/releases). Builds are made on demand: run the Release workflow from the Actions tab, or push a `v*` tag.
 
 * **macOS:** download the `.dmg` and drag the app to Applications. It is unsigned, so on first launch right-click the app and choose Open.
-* **Windows:** download the `.zip`, unzip it and run `firebird-emu.exe`.
+* **Windows:** download the `.zip`, unzip it and run `tiNspired.exe`.
 
 Using it
 --------

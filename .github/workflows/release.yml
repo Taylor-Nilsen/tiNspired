@@ -5,7 +5,7 @@ on:
     inputs:
       tag:
         description: Release tag
-        default: nightly
+        default: preview
   push:
     tags: [ 'v*' ]
 
@@ -24,33 +24,33 @@ jobs:
           target: desktop
           version: '5.15.2'
 
-    - name: Build firebird-emu Qt on macOS
+    - name: Build tiNspired Qt on macOS
       run: |
         set -e
         mkdir build
         cd build
         qmake .. && make -j4
-        macdeployqt firebird-emu.app -qmldir=../qml
-        mkdir -p /tmp/firebird-emu_macOS/
-        mv firebird-emu.app /tmp/firebird-emu_macOS/
+        macdeployqt tiNspired.app -qmldir=../qml
+        mkdir -p /tmp/tiNspired_macOS/
+        mv tiNspired.app /tmp/tiNspired_macOS/
 
     - name: Create the DMG
       run: |
           brew install create-dmg || brew install create-dmg # we try twice because sometimes it fails...
-          createDmgArgs="--volname 'firebird-emu_macOS' \
+          createDmgArgs="--volname 'tiNspired_macOS' \
               --window-pos 200 120 \
               --window-size 600 400 \
               --icon-size 64 \
-              --icon 'firebird-emu.app' 125 200 \
+              --icon 'tiNspired.app' 125 200 \
               --app-drop-link 400 200 \
-              'firebird-emu_macOS.dmg' \
-              '/tmp/firebird-emu_macOS/'"
+              'tiNspired_macOS.dmg' \
+              '/tmp/tiNspired_macOS/'"
           eval "create-dmg $createDmgArgs" || eval "create-dmg $createDmgArgs" # retry just in case...
 
     - uses: actions/upload-artifact@v7
       with:
-          name: firebird-emu_macOS
-          path: firebird-emu_macOS.dmg
+          name: tiNspired_macOS
+          path: tiNspired_macOS.dmg
           if-no-files-found: error
 
   windows:
@@ -76,21 +76,21 @@ jobs:
         echo "$env:IQTA_TOOLS/mingw810_32/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         echo "$env:IQTA_TOOLS/mingw810_64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-    - name: Build firebird-emu
+    - name: Build tiNspired
       run: |
         mkdir build
         cd build
         qmake ..
         mingw32-make -j4
-        mkdir firebird-emu
-        mv release/firebird-emu.exe firebird-emu/
-        windeployqt --qmldir=../qml --no-qmltooling firebird-emu/firebird-emu.exe
-        Compress-Archive -Path firebird-emu -DestinationPath ../firebird-emu_windows-x64.zip
+        mkdir tiNspired
+        mv release/tiNspired.exe tiNspired/
+        windeployqt --qmldir=../qml --no-qmltooling tiNspired/tiNspired.exe
+        Compress-Archive -Path tiNspired -DestinationPath ../tiNspired_windows-x64.zip
 
     - uses: actions/upload-artifact@v7
       with:
-          name: firebird-emu_windows-x64
-          path: firebird-emu_windows-x64.zip
+          name: tiNspired_windows-x64
+          path: tiNspired_windows-x64.zip
           if-no-files-found: error
 
   release:
